@@ -1,4 +1,4 @@
-const { createChambre, getAllChambres } = require("../../../controllers")
+const { createChambre, getAllChambres, deleteChambre, updateChambre } = require("../../../controllers")
 
 const router = require("express").Router()
 
@@ -21,6 +21,26 @@ router.post("/addChambre", async (req, res) => {
 router.get("/chambres", async (req,res)=>{
     let data = await getAllChambres()
     res.status(200).json(data)
+})
+
+
+router.get("/deleteChambre/:id", async (req,res)=>{
+    let {id} = req.params
+    await deleteChambre(id)
+    res.status(204).json({
+        message: "Deleted successfully"
+    })
+})
+
+
+router.post("/updateChambre", async (req,res) => {
+    let {data} = req.body
+    await updateChambre(data)
+    
+    res.status(204).json({
+        message: "updated successfully"
+    })
+
 })
 
 

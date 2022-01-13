@@ -1,5 +1,5 @@
 const {createUser} = require("./users")
-const {createReservation} = require("./reservations")
+const {createReservation,getAllReservations} = require("./reservations")
 const {createTypeDeLit,getTypeDeLitById,getAllTypeDeLit,deleteTypeDeLit,updateTypeDeLit} = require("./typeDeLit")
 const {createTypeDeChambre,getTypeDeChambreById,getAllTypeDeChambre,deleteTypeDeChambre,updateTypeDeChambre} = require("./typeDeChambre")
 const {createChambre,getChambreById,getAllChambres,deleteChambre,updateChambre} = require("./chambres")
@@ -25,5 +25,6 @@ module.exports = {
     deleteTypeDeChambre,
     updateTypeDeChambre,
     checkavailableChambre,
-    getAllAvailableChambre
+    getAllAvailableChambre,
+    getAllReservations
 }
