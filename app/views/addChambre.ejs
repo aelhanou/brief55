@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" integrity="sha512-wnea99uKIC3TJF7v4eKk4Y+lMz2Mklv18+r4na2Gn1abDRPPOeef95xTzdwGD9e6zXJBteMIhZ1+68QC5byJZw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <title>Add Chmabre</title>
+</head>
+<body>
+    
+<!-- component -->
+        <div>
+            <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
+            
+            <div x-data="{ sidebarOpen: false }" class="flex h-screen bg-gray-200">
+                <div :class="sidebarOpen ? 'block' : 'hidden'" @click="sidebarOpen = false" class="fixed z-20 inset-0 bg-black opacity-50 transition-opacity lg:hidden"></div>
+                
+                <%- include("./navBar.ejs") %>
+                <div class="flex-1 flex flex-col overflow-hidden">
+                    <%-include("./header.ejs") %>
+                    
+                </div>
+                </div>
+            </div>
+        </div>
+</body>
+</html>
