@@ -1,5 +1,4 @@
-const { createUser, createReservation, isAvailable, getAllReservations, checkavailableChambre } = require("../../../controllers");
-const { getReservationById } = require("../../../controllers/reservations");
+const { createUser, createReservation, getAllReservations, isReserved, getReservationById } = require("../../../controllers");
 
 const router = require("express").Router()
 
@@ -31,8 +30,8 @@ router.post("/reservation", async (req, res) => {
     //     "idChambre": ""
     // }
 
-    let { dataUser, data, chambrereserved } = req.body
-    let check = await checkavailableChambre(data.dateDeDebit, data.dateDeFin)
+    let { dataUser, data } = req.body
+    let check = await isReserved(data.dateDeDebit, data.dateDeFin, data.idChambre)
     if (check) {
         res.json({
             massage: "this chambre is not available"
@@ -41,9 +40,7 @@ router.post("/reservation", async (req, res) => {
     } else {
 
         let user = await createUser(dataUser)
-        let reservation = await createReservation({ ...data, "idUser": user })
-        await isAvailable({ ...chambrereserved, "reservationDeDebit": reservation?.dateDeDebit, "reservationDeFin": reservation?.dateDeFin, "idChambre": reservation.idChambre })
-
+        await createReservation({ ...data, "idUser": user })
         res.status(201).json({
             message: "Reservation Created successfully"
         })

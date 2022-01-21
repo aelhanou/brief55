@@ -6,7 +6,12 @@ const chambreSchema = new Schema(
         nomDeCHambre: { type: String },
         prixDeChambre: { type: String },
         capacityDeChambre: { type: String },
-        prix: {type: String},
+        id_Reservations:[
+            {
+                type: Schema.Types.ObjectId,
+                ref: "Reservation"
+            }
+        ],
         idTypeDeChambre: {
             type: Schema.Types.ObjectId,
             ref : "typeDeChambre"

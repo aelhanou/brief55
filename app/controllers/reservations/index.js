@@ -1,29 +1,75 @@
-const { reservationModel } = require("../../models");
+const { reservationModel, chambreModel } = require("../../models");
 
 
 
 const createReservation = async (data) => {
-    let reservation = await reservationModel.create(data)
-    return reservation
+    try {
+        let reservation = await reservationModel.create(data)
+
+        let { idChambre } = data
+        await chambreModel.bulkWrite([
+            {
+                updateOne: {
+                    filter: { _id: idChambre },
+                    update: { $addToSet: { id_Reservations: reservation?._id } }
+                }
+            }
+        ])
+
+        return reservation
+    } catch (error) {
+        throw error
+    }
+
 }
 
 
+
+const isReserved = async (debit, fin, idChambre) => {
+    try {
+        let available = await reservationModel.findOne({ $and: [{ "idChambre": idChambre }, { $or: [{ "dateDeDebit": { "$lte": fin }, "dateDeFin": { "$gte": debit } }] }] })
+        return available
+    } catch (error) {
+        throw error
+    }
+}
+
 const getReservationById = async (id) => {
-    let reservation = await reservationModel.findById(id).populate({
-        path: "idUser",
-    }).populate({
-        path: "idChambre"
-    })
-    return reservation
+    try {
+        let reservation = await reservationModel.findById(id).populate({
+            path: "idUser",
+        }).populate({
+            path: "idChambre",
+            populate: {
+                path: "idTypeDeChambre",
+                populate: {
+                    path: "idTypeDeLit"
+                }
+            }
+        })
+        return reservation
+    } catch (error) {
+        throw error
+    }
 }
 
 const getAllReservations = async () => {
-    let reservations = await reservationModel.find().populate({
-        path: "idUser",
-    }).populate({
-        path: "idChambre"
-    })
-    return reservations
+    try {
+        let reservations = await reservationModel.find().populate([{
+            path: "idUser",
+        }, {
+            path: "idChambre",
+            populate: {
+                path: "idTypeDeChambre",
+                populate: {
+                    path: "idTypeDeLit"
+                }
+            }
+        }])
+        return reservations
+    } catch (error) {
+        throw error
+    }
 }
 
 
@@ -31,5 +77,6 @@ const getAllReservations = async () => {
 module.exports = {
     createReservation,
     getReservationById,
-    getAllReservations
+    getAllReservations,
+    isReserved
 }

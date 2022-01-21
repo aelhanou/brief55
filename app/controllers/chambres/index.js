@@ -3,58 +3,86 @@ const { chambreModel } = require("../../models")
 
 
 
+
 const createChambre = async (data) => {
-    let chambre = await chambreModel.create(data)
-    return chambre ? true : false
+    try {
+        let chambre = await chambreModel.create(data)
+        return chambre
+    } catch (error) {
+        throw error
+    }
+
 }
 
+
 const getChambreById = async (id) => {
-    let chambre = await chambreModel.findById(id).populate({
-        path: "idTypeDeChambre",
-        select: "typeDeChambre typeDeVue",
-        populate: {
-            path: "idTypeDeLit",
-            select: "typeDeLit"
-        }
-    })
-    console.log(chambre);
+    try {
+        let chambre = await chambreModel.findById(id).populate({
+            path: "idTypeDeChambre",
+            select: "typeDeChambre typeDeVue",
+            populate: {
+                path: "idTypeDeLit",
+                select: "typeDeLit"
+            }
+        })
+        return chambre
+    } catch (error) {
+        throw error
+    }
 }
 
 const getAllChambres = async () => {
-    let chambres = await chambreModel.find().populate({
-        path: "idTypeDeChambre",
-        select: "typeDeChambre typeDeVue",
-        populate: {
-            path: "idTypeDeLit",
-            select: "typeDeLit"
-        }
-    })
-    return chambres
+    try {
+        let chambres = await chambreModel.find().populate([
+            {
+                path: "idTypeDeChambre",
+                select: "typeDeChambre typeDeVue",
+                populate: {
+                    path: "idTypeDeLit",
+                    select: "typeDeLit"
+                }
+            },
+            {
+                path: "id_Reservations",
+            }
+        ])
+        return chambres
+    } catch (error) {
+        throw error
+    }
+
 }
 
 
 const deleteChambre = async (id) => {
-    let chambre= await chambreModel.bulkWrite([
-        {
-            deleteOne: {
-                filter: {_id: id}
+    try {
+        await chambreModel.bulkWrite([
+            {
+                deleteOne: {
+                    filter: { _id: id }
+                }
             }
-        }
-    ])
+        ])
+    } catch (error) {
+        throw error
+    }
 
-    console.log(chambre);
 }
 
 const updateChambre = async (data) => {
-    let {id} = data
-    let chambre = await chambreModel.bulkWrite([
-        {
-            updateOne: {
-                filter: {_id:id},
-                update: data
+    try {
+        let { id } = data
+        await chambreModel.bulkWrite([
+            {
+                updateOne: {
+                    filter: { _id: id },
+                    update: data
+                }
             }
-        }
-    ])
+        ])
+    } catch (error) {
+        throw error
+    }
 }
 
 

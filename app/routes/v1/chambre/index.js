@@ -4,24 +4,23 @@ const router = require("express").Router()
 
 
 router.post("/addChambre", async (req, res) => {
-    let { dataChambre } = req.body
 
-    if (!dataChambre) {
-        res.status(500).json({
-            message: "fill the fields inputs"
-        })
-    }
-    await createChambre(dataChambre)
+    // if (!dataChambre) {
+    //     res.status(500).json({
+    //         message: "fill the fields inputs"
+    //     })
+    // }
+    console.log(req.body);
+    let data =await createChambre(req.body)
     // await getChambreById("61dac0e28f5e580f90fccaf9")
-    res.status(201).json({
-        message: "created successfully"
-    })
+    res.status(201).json(data)
 })
 
 router.get("/chambres", async (req,res)=>{
     let data = await getAllChambres()
     res.status(200).json(data)
 })
+
 
 
 router.get("/deleteChambre/:id", async (req,res)=>{
