@@ -32,7 +32,7 @@ const runServer = () => {
 
     app.get("/",(req,res) =>{
         res.json({
-            message: "yo bro"
+            message: "hello world"
         })
     })
     app.use(router)
