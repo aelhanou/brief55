@@ -12,14 +12,14 @@ const runServer = () => {
     const DB_HOST = process.env.DB_HOST
 
     const app = express()
-    const session = ironSession({
-        cookieName: "iron-session/examples/express",
-        password: "Gyn98B6gQOl1YxzaZCu0MCT4Kq6ZicYg",
-        cookieOptions: {
-          secure: process.env.NODE_ENV === "production",
-          sameSite: "lax",
-        },
-      });
+    // const session = ironSession({
+    //     cookieName: "iron-session/examples/express",
+    //     password: "Gyn98B6gQOl1YxzaZCu0MCT4Kq6ZicYg",
+    //     cookieOptions: {
+    //       secure: process.env.NODE_ENV === "production",
+    //       sameSite: "lax",
+    //     },
+    //   });
 
 
     app.use(session)
