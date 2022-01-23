@@ -30,9 +30,9 @@ const runServer = () => {
     // parse requests of content-type - application/x-www-form-urlencoded
     app.use(express.urlencoded({ extended: true }));
 
-    app.get("/",(req,res) =>{
+    app.get("/yo",(req,res) =>{
         res.json({
-            message: "hello world"
+            message: "hello brp"
         })
     })
     app.use(router)
