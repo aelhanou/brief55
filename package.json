@@ -4,7 +4,8 @@
   "description": "reservation de hotel",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon app/entryPoint.js"
+    "start": "nodemon app/entryPoint.js",
+    "build": "node app/entryPoint.js"
   },
   "repository": {
     "type": "git",
@@ -22,6 +23,7 @@
     "express": "^4.17.2",
     "express-mongodb-session": "^3.2.1",
     "express-session": "^1.17.2",
+    "iron-session": "^6.0.5",
     "mongoose": "^6.1.5",
     "nodemon": "^2.0.15"
   }

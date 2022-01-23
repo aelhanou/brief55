@@ -10,7 +10,6 @@ router.post("/addChambre", async (req, res) => {
     //         message: "fill the fields inputs"
     //     })
     // }
-    console.log(req.body);
     let data =await createChambre(req.body)
     // await getChambreById("61dac0e28f5e580f90fccaf9")
     res.status(201).json(data)
