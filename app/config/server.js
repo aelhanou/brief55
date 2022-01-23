@@ -2,7 +2,7 @@ const express = require("express")
 const mongoose = require("mongoose")
 const cors = require("cors");
 const { router } = require("../routes")
-const { ironSession } = require("iron-session/express");
+// const { ironSession } = require("iron-session/express");
 
 require("dotenv").config()
 
@@ -22,7 +22,7 @@ const runServer = () => {
     //   });
 
 
-    app.use(session)
+    // app.use(session)
 
     app.use(cors());
     // parse requests of content-type - application/json
