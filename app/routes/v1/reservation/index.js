@@ -49,8 +49,16 @@ router.post("/reservation", async (req, res) => {
 
 
 router.get("/reservations", async (req, res) => {
-    let data = await getAllReservations()
-    res.status(200).json(data)
+    if (req.session.auth) {
+        let data = await getAllReservations()
+        res.status(200).json(data)
+
+    } else {
+        res.status(200).json({
+            message: "can't reach this endpoint"
+        })
+
+    }
 })
 
 
